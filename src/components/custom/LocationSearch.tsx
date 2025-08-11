@@ -1,0 +1,110 @@
+import { useState } from 'react';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { debounce } from 'es-toolkit';
+
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useRecentSearch } from '@/hooks/useRecentSearch';
+import { useLocationSearch } from '@/hooks/useLocationSearch';
+
+export const LocationSearch = () => {
+  const [open, setOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const { recentSearches, addToRecentSearch } = useRecentSearch();
+  const { data: locations, status, refetch } = useLocationSearch(inputValue);
+
+  const debouncedRefetch = debounce(refetch, 200);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[200px] justify-between"
+        >
+          {selectedLocation ? selectedLocation : 'Select location...'}
+          <ChevronsUpDown className="opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput
+            placeholder="Search location..."
+            className="h-9"
+            value={inputValue}
+            onValueChange={(value) => {
+              setInputValue(value);
+              if (value?.length > 1) {
+                debouncedRefetch();
+              }
+            }}
+          />
+          <CommandList>
+            {status === 'success' && <CommandEmpty>No such location found...</CommandEmpty>}
+            <CommandGroup heading="Recent searches">
+              {!locations &&
+                recentSearches.map((location) => (
+                  <CommandItem
+                    key={location}
+                    value={location}
+                    onSelect={(currentLocation) => {
+                      setSelectedLocation(
+                        currentLocation === selectedLocation ? '' : currentLocation,
+                      );
+                      setOpen(false);
+                      setInputValue('');
+                    }}
+                  >
+                    {location}
+                    <Check
+                      className={cn(
+                        'ml-auto',
+                        location === selectedLocation ? 'opacity-100' : 'opacity-0',
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+            </CommandGroup>
+            <CommandGroup>
+              {locations?.map((location) => (
+                <CommandItem
+                  key={location.id}
+                  value={location.name}
+                  onSelect={(currentLocation) => {
+                    const shouldDeselect = currentLocation === selectedLocation;
+                    setSelectedLocation(shouldDeselect ? '' : currentLocation);
+                    if (!shouldDeselect) {
+                      setInputValue('');
+                      addToRecentSearch(currentLocation);
+                    }
+                    setOpen(false);
+                  }}
+                >
+                  {location.name}
+                  <Check
+                    className={cn(
+                      'ml-auto',
+                      location.name === selectedLocation ? 'opacity-100' : 'opacity-0',
+                    )}
+                  />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
