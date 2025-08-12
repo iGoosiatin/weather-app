@@ -50,6 +50,9 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
+      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
+        5-Day Forecast
+      </h2>
       <Carousel>
         <CarouselContent>
           {forecast.forecastday.map((day, index) => (
