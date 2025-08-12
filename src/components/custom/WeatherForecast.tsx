@@ -12,11 +12,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useWeatherForecast } from '@/hooks/useWeatherForecast';
 
 type Props = {
-  locationName?: string;
+  selectedLocation: string;
 };
 
-export const WeatherForecast: FC<Props> = ({ locationName = 'Vilnius' }) => {
-  const { data: forecast, isLoading, error } = useWeatherForecast(locationName);
+export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
+  const { data: forecast, isLoading, error } = useWeatherForecast(selectedLocation);
 
   if (isLoading) {
     return (
@@ -66,7 +66,6 @@ export const WeatherForecast: FC<Props> = ({ locationName = 'Vilnius' }) => {
                 }
                 temp={day.day?.avgtemp_c}
                 feelsLike={day.day?.maxtemp_c}
-                pressure={undefined}
                 humidity={day.day?.avghumidity}
                 wind={day.day?.maxwind_kph}
                 condition={day.day?.condition}

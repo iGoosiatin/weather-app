@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FC } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { debounce } from 'es-toolkit';
 
@@ -16,9 +16,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useRecentSearch } from '@/hooks/useRecentSearch';
 import { useLocationSearch } from '@/hooks/useLocationSearch';
 
-export const LocationSearch = () => {
+type Props = {
+  selectedLocation: string;
+  onLocationSelect: (location: string) => void;
+};
+
+export const LocationSearch: FC<Props> = ({ selectedLocation, onLocationSelect }) => {
   const [open, setOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('');
   const [inputValue, setInputValue] = useState('');
   const { recentSearches, addToRecentSearch } = useRecentSearch();
   const { data: locations, status, refetch } = useLocationSearch(inputValue);
@@ -60,11 +64,11 @@ export const LocationSearch = () => {
                     key={location}
                     value={location}
                     onSelect={(currentLocation) => {
-                      setSelectedLocation(
-                        currentLocation === selectedLocation ? '' : currentLocation,
-                      );
-                      setOpen(false);
-                      setInputValue('');
+                      if (currentLocation !== selectedLocation) {
+                        onLocationSelect(currentLocation);
+                        setOpen(false);
+                        setInputValue('');
+                      }
                     }}
                   >
                     {location}
@@ -85,13 +89,12 @@ export const LocationSearch = () => {
                     key={location.id}
                     value={location.name}
                     onSelect={(currentLocation) => {
-                      const shouldDeselect = currentLocation === selectedLocation;
-                      setSelectedLocation(shouldDeselect ? '' : currentLocation);
-                      if (!shouldDeselect) {
+                      if (currentLocation !== selectedLocation) {
                         setInputValue('');
                         addToRecentSearch(currentLocation);
+                        onLocationSelect(currentLocation);
+                        setOpen(false);
                       }
-                      setOpen(false);
                     }}
                   >
                     {location.name}
