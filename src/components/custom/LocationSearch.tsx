@@ -53,9 +53,9 @@ export const LocationSearch = () => {
           />
           <CommandList>
             {status === 'success' && <CommandEmpty>No such location found...</CommandEmpty>}
-            <CommandGroup heading="Recent searches">
-              {!locations &&
-                recentSearches.map((location) => (
+            {!locations && !!recentSearches.length && (
+              <CommandGroup heading="Recent searches">
+                {recentSearches.map((location) => (
                   <CommandItem
                     key={location}
                     value={location}
@@ -76,32 +76,35 @@ export const LocationSearch = () => {
                     />
                   </CommandItem>
                 ))}
-            </CommandGroup>
-            <CommandGroup>
-              {locations?.map((location) => (
-                <CommandItem
-                  key={location.id}
-                  value={location.name}
-                  onSelect={(currentLocation) => {
-                    const shouldDeselect = currentLocation === selectedLocation;
-                    setSelectedLocation(shouldDeselect ? '' : currentLocation);
-                    if (!shouldDeselect) {
-                      setInputValue('');
-                      addToRecentSearch(currentLocation);
-                    }
-                    setOpen(false);
-                  }}
-                >
-                  {location.name}
-                  <Check
-                    className={cn(
-                      'ml-auto',
-                      location.name === selectedLocation ? 'opacity-100' : 'opacity-0',
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
+              </CommandGroup>
+            )}
+            {!!locations?.length && (
+              <CommandGroup>
+                {locations?.map((location) => (
+                  <CommandItem
+                    key={location.id}
+                    value={location.name}
+                    onSelect={(currentLocation) => {
+                      const shouldDeselect = currentLocation === selectedLocation;
+                      setSelectedLocation(shouldDeselect ? '' : currentLocation);
+                      if (!shouldDeselect) {
+                        setInputValue('');
+                        addToRecentSearch(currentLocation);
+                      }
+                      setOpen(false);
+                    }}
+                  >
+                    {location.name}
+                    <Check
+                      className={cn(
+                        'ml-auto',
+                        location.name === selectedLocation ? 'opacity-100' : 'opacity-0',
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
