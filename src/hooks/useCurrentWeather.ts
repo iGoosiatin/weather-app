@@ -3,7 +3,7 @@ import { currentWeather } from '@/api/weather';
 import type { CurrentWeather } from '@/types/CurrentWeather';
 
 export const useCurrentWeather = (query: string) => {
-  return useQuery<CurrentWeather>({
+  return useQuery<CurrentWeather | null>({
     queryKey: ['current-weather', query],
     queryFn: () => currentWeather(query),
     enabled: !!query,

@@ -9,12 +9,19 @@ type Props = {
 export const CurrentWeather: FC<Props> = ({ locationName = 'Vilnius' }) => {
   const { data, isLoading, error } = useCurrentWeather(locationName);
 
+  const { temp_c, wind_kph, humidity, pressure_mb, condition, feelslike_c } = data || {};
+
   return (
     <WeatherCard
       title={`Currently in ${locationName}`}
-      weather={data?.current}
       isLoading={isLoading}
       error={error}
+      temp={temp_c}
+      pressure={pressure_mb}
+      condition={condition}
+      wind={wind_kph}
+      humidity={humidity}
+      feelsLike={feelslike_c}
     />
   );
 };
