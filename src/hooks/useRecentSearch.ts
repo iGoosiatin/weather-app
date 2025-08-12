@@ -4,7 +4,7 @@ const STORAGE_KEY = 'recentSearches';
 const MAX_RECENT_SEARCHES = 5;
 
 export const useRecentSearch = () => {
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [recentSearches, setRecentSearches] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -14,10 +14,7 @@ export const useRecentSearch = () => {
   }, []);
 
   const addToRecentSearch = (location: string) => {
-    const updated = [location, ...recentSearches.filter((item) => item !== location)].slice(
-      0,
-      MAX_RECENT_SEARCHES,
-    );
+    const updated = new Set([location, ...recentSearches].slice(0, MAX_RECENT_SEARCHES));
     setRecentSearches(updated);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
