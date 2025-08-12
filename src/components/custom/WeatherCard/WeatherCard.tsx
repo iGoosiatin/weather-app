@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WeatherCardSkeleton } from './WeatherCardSkeleton';
+import { WeatherCardError } from './WeatherCardError';
 
 type Props = {
   title?: string;
@@ -20,12 +21,7 @@ type Props = {
 
 export const WeatherCard: FC<Props> = ({ title, isLoading, error, ...weather }) => {
   if (isLoading) return <WeatherCardSkeleton />;
-  if (error)
-    return (
-      <Card>
-        <CardContent className="p-6">Error loading weather</CardContent>
-      </Card>
-    );
+  if (error) return <WeatherCardError />;
 
   const { temp, condition, feelsLike, humidity, wind, pressure } = weather;
   const { icon: conditionIcon, text: conditionText } = condition || {};

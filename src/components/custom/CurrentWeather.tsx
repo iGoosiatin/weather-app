@@ -1,6 +1,6 @@
 import type { FC } from 'React';
 import { useCurrentWeather } from '@/hooks/useCurrentWeather';
-import { WeatherCard } from './WeatherCard';
+import { WeatherCard } from '@/components/custom/WeatherCard';
 
 type Props = {
   selectedLocation: string;

@@ -1,6 +1,7 @@
 import { LocationSearch } from '@/components/custom/LocationSearch';
 import { CurrentWeather } from './components/custom/CurrentWeather';
 import { WeatherForecast } from './components/custom/WeatherForecast';
+import { Toaster } from '@/components/ui/sonner';
 import { useState } from 'react';
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
           <WeatherForecast selectedLocation={selectedLocation} />
         </div>
       </div>
+      <Toaster richColors closeButton />
     </div>
   );
 };

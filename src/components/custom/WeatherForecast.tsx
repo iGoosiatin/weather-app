@@ -6,14 +6,24 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { WeatherCard } from './WeatherCard';
-import { WeatherCardSkeleton } from './WeatherCardSkeleton';
+
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  WeatherCard,
+  WeatherCardError,
+  WeatherCardSkeleton,
+} from '@/components/custom/WeatherCard';
 import { useWeatherForecast } from '@/hooks/useWeatherForecast';
 
 type Props = {
   selectedLocation: string;
 };
+
+const Header: FC = () => (
+  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
+    5-Day Forecast
+  </h2>
+);
 
 export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
   const { data: forecast, isLoading, error } = useWeatherForecast(selectedLocation);
@@ -39,7 +49,10 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
   if (error) {
     return (
       <div className="w-full max-w-4xl mx-auto">
-        <WeatherCard error={error} />
+        <Header />
+        <div className="flex justify-center">
+          <WeatherCardError />
+        </div>
       </div>
     );
   }
@@ -50,9 +63,7 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
-        5-Day Forecast
-      </h2>
+      <Header />
       <Carousel>
         <CarouselContent>
           {forecast.forecastday.map((day, index) => (
