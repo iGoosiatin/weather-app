@@ -31,10 +31,10 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
   if (isLoading) {
     return (
       <div className="w-full max-w-4xl mx-auto">
-        <Carousel>
+        <Carousel opts={{ align: 'start' }}>
           <CarouselContent>
             {Array.from({ length: 3 }).map((_, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={index} className="md:basis-1/2">
                 <WeatherCardSkeleton />
               </CarouselItem>
             ))}
@@ -64,10 +64,10 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Header />
-      <Carousel>
+      <Carousel opts={{ align: 'start' }}>
         <CarouselContent>
           {forecast.forecastday.map((day, index) => (
-            <CarouselItem key={day.date || index} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={day.date || index} className="md:basis-1/2">
               <WeatherCard
                 title={
                   day.date
@@ -83,6 +83,7 @@ export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
                 humidity={day.day?.avghumidity}
                 wind={day.day?.maxwind_kph}
                 condition={day.day?.condition}
+                precipitation={day.day?.totalprecip_mm}
               />
             </CarouselItem>
           ))}

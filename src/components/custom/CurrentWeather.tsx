@@ -13,7 +13,7 @@ export const CurrentWeather: FC<Props> = ({ selectedLocation }) => {
     return null;
   }
 
-  const { temp_c, wind_kph, humidity, pressure_mb, condition, feelslike_c } = data || {};
+  const { temp_c, wind_kph, humidity, precip_mm, condition, feelslike_c } = data || {};
 
   return (
     <WeatherCard
@@ -21,7 +21,7 @@ export const CurrentWeather: FC<Props> = ({ selectedLocation }) => {
       isLoading={isLoading}
       error={error}
       temp={temp_c}
-      pressure={pressure_mb}
+      precipitation={precip_mm}
       condition={condition}
       wind={wind_kph}
       humidity={humidity}
