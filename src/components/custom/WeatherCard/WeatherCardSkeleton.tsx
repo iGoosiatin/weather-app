@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export const WeatherCardSkeleton: FC = () => (
-  <Card className="w-full max-w-md h-full flex flex-col">
+  <Card className="w-full max-w-md h-full flex flex-col" data-testid="weather-card-skeleton">
     <CardHeader>
       <Skeleton className="h-6 w-32" />
     </CardHeader>
