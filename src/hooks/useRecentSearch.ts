@@ -8,9 +8,18 @@ export const useRecentSearch = () => {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    console.log(stored);
     if (stored) {
-      setRecentSearches(new Set(JSON.parse(stored)));
+      let parsed;
+      try {
+        parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setRecentSearches(new Set(JSON.parse(stored)));
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
   }, []);
 
