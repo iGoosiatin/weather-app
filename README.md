@@ -62,10 +62,9 @@ pnpm preview
 ```
 
 ## Tech Stack
-
-- **React 19**
 - **TypeScript**
-- **Shadcn/ui**/**Tailwind CSS**
-- **React Query**
-- **Zustand**
-- **Vitest** + **Testing Library**
+- **React 19**
+- **Shadcn/ui** / **Tailwind CSS** - UI components and styles
+- **React Query** - data fetching
+- **Zustand** - state manager
+- **Vitest** + **Testing Library** - unit testing
