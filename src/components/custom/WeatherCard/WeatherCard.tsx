@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WeatherCardSkeleton } from './WeatherCardSkeleton';
-import { WeatherCardError } from './WeatherCardError';
 import { isNumber } from '@/lib/utils';
 
 type Props = {
   title?: string;
   isLoading?: boolean;
-  error?: Error | null;
   temp?: number;
   feelsLike?: number;
   precipitation?: number;
@@ -20,9 +18,8 @@ type Props = {
   };
 };
 
-export const WeatherCard: FC<Props> = ({ title, isLoading, error, ...weather }) => {
+export const WeatherCard: FC<Props> = ({ title, isLoading, ...weather }) => {
   if (isLoading) return <WeatherCardSkeleton />;
-  if (error) return <WeatherCardError />;
 
   const { temp, condition, feelsLike, humidity, wind, precipitation } = weather;
   const { icon: conditionIcon, text: conditionText } = condition || {};
