@@ -7,15 +7,15 @@ import { useWeather } from '@/hooks/useWeather';
 import { useDefaultLocation } from './hooks/useDefaultLocation';
 
 export const App = () => {
-  const defaltLocation = useDefaultLocation();
+  const defaultLocation = useDefaultLocation();
   const [selectedLocation, setSelectedLocation] = useState('');
   const { data, error, isLoading } = useWeather(selectedLocation);
 
   useEffect(() => {
-    if (defaltLocation) {
-      setSelectedLocation(defaltLocation);
+    if (defaultLocation) {
+      setSelectedLocation(defaultLocation);
     }
-  }, [defaltLocation]);
+  }, [defaultLocation]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">

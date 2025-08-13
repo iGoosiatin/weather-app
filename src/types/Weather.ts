@@ -1,3 +1,9 @@
+export type WeatherCondition = {
+  text?: string;
+  icon?: string;
+  code?: number;
+};
+
 export type Weather = {
   current?: {
     last_updated_epoch?: number;
@@ -5,11 +11,7 @@ export type Weather = {
     temp_c?: number;
     temp_f?: number;
     is_day?: number;
-    condition?: {
-      text?: string;
-      icon?: string;
-      code?: number;
-    };
+    condition?: WeatherCondition;
     wind_mph?: number;
     wind_kph?: number;
     wind_degree?: number;
@@ -45,11 +47,7 @@ export type Weather = {
         daily_chance_of_rain?: number;
         daily_will_it_snow?: number;
         daily_chance_of_snow?: number;
-        condition?: {
-          text?: string;
-          icon?: string;
-          code?: number;
-        };
+        condition?: WeatherCondition;
         uv?: number;
       };
       astro?: {
@@ -68,11 +66,7 @@ export type Weather = {
         temp_c?: number;
         temp_f?: number;
         is_day?: number;
-        condition?: {
-          text?: string;
-          icon?: string;
-          code?: number;
-        };
+        condition?: WeatherCondition;
         wind_mph?: number;
         wind_kph?: number;
         wind_degree?: number;

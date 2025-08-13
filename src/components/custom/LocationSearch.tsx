@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, useMemo, type FC } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { debounce } from 'es-toolkit';
 
@@ -27,7 +27,7 @@ export const LocationSearch: FC<Props> = ({ selectedLocation, onLocationSelect }
   const { recentSearches, addToRecentSearch } = useRecentSearch();
   const { data: locations, status, refetch } = useLocationSearch(inputValue);
 
-  const debouncedRefetch = debounce(refetch, 200);
+  const debouncedRefetch = useMemo(() => debounce(refetch, 200), [refetch]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

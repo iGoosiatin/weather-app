@@ -13,7 +13,7 @@ export const useRecentSearch = () => {
       try {
         parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          setRecentSearches(new Set(JSON.parse(stored)));
+          setRecentSearches(new Set(parsed));
         } else {
           localStorage.removeItem(STORAGE_KEY);
         }

@@ -5,4 +5,4 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const isNumber = (n: unknown): n is number => typeof n === 'number';
+export const isNumber = (n: unknown): n is number => typeof n === 'number' && !Number.isNaN(n);
