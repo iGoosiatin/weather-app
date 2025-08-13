@@ -5,12 +5,7 @@ export const WeatherCardError: FC = () => (
   <Card className="w-full max-w-md h-full flex flex-col border-red-200 dark:border-red-800">
     <CardContent className="p-6 flex flex-col items-center justify-center text-center space-y-3">
       <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
-        <svg
-          className="w-6 h-6 text-red-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -20,9 +15,7 @@ export const WeatherCardError: FC = () => (
         </svg>
       </div>
       <div>
-        <p className="text-sm font-medium text-red-600 dark:text-red-400">
-          Unable to load weather
-        </p>
+        <p className="text-sm font-medium text-red-600 dark:text-red-400">Unable to load weather</p>
         <p className="text-xs text-red-500 dark:text-red-500 mt-1">Please try again later</p>
       </div>
     </CardContent>
