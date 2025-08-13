@@ -57,9 +57,9 @@ export const LocationSearch: FC<Props> = ({ selectedLocation, onLocationSelect }
           />
           <CommandList>
             {status === 'success' && <CommandEmpty>No such location found...</CommandEmpty>}
-            {!locations && !!recentSearches.length && (
+            {!locations && !!recentSearches.size && (
               <CommandGroup heading="Recent searches">
-                {recentSearches.map((location) => (
+                {[...recentSearches].map((location) => (
                   <CommandItem
                     key={location}
                     value={location}
