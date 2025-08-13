@@ -13,10 +13,12 @@ import {
   WeatherCardError,
   WeatherCardSkeleton,
 } from '@/components/custom/WeatherCard';
-import { useWeatherForecast } from '@/hooks/useWeatherForecast';
+import type { Weather } from '@/types/Weather';
 
 type Props = {
-  selectedLocation: string;
+  forecast: Weather['forecast'];
+  isLoading?: boolean;
+  error?: Error | null;
 };
 
 const Header: FC = () => (
@@ -25,9 +27,7 @@ const Header: FC = () => (
   </h2>
 );
 
-export const WeatherForecast: FC<Props> = ({ selectedLocation }) => {
-  const { data: forecast, isLoading, error } = useWeatherForecast(selectedLocation);
-
+export const WeatherForecast: FC<Props> = ({ isLoading, error, forecast }) => {
   if (isLoading) {
     return (
       <div className="w-full max-w-4xl mx-auto">

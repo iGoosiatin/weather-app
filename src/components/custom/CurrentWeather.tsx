@@ -1,21 +1,27 @@
 import type { FC } from 'React';
-import { useCurrentWeather } from '@/hooks/useCurrentWeather';
 import { WeatherCard, WeatherCardError } from '@/components/custom/WeatherCard';
+import type { Weather } from '@/types/Weather';
 
 type Props = {
   selectedLocation: string;
+  isLoading?: boolean;
+  error?: Error | null;
+  currentWeather: Weather['current'];
 };
 
-export const CurrentWeather: FC<Props> = ({ selectedLocation }) => {
-  const { data, isLoading, error } = useCurrentWeather(selectedLocation);
-
+export const CurrentWeather: FC<Props> = ({
+  selectedLocation,
+  currentWeather,
+  error,
+  isLoading,
+}) => {
   if (!selectedLocation) {
     return null;
   }
 
   if (error) return <WeatherCardError />;
 
-  const { temp_c, wind_kph, humidity, precip_mm, condition, feelslike_c } = data || {};
+  const { temp_c, wind_kph, humidity, precip_mm, condition, feelslike_c } = currentWeather || {};
 
   return (
     <WeatherCard
