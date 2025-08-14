@@ -18,6 +18,14 @@ A modern weather application built with React, TypeScript, and Vite that provide
 5. **Toggle Theme**: Switch between dark and light modes using the theme toggle
 
 ## Getting Started
+Register on https://www.weatherapi.com/ to get `API_KEY`.
+Put this key into `.env` file
+```bash
+echo VITE_WEATHER_API_KEY=your_api_key > .env
+
+# or copy sample file and update key there
+cp .env.sample .env
+```
 
 ### Prerequisites
 - Node.js
